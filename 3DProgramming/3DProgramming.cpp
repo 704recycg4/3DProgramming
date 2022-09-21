@@ -22,7 +22,7 @@ int main(void)
     glfwSetErrorCallback(error_callback);
     if (!glfwInit())
         exit(EXIT_FAILURE);
-    window = glfwCreateWindow(640, 480, "Simple example", NULL, NULL);
+    window = glfwCreateWindow(640, 640, "Simple example", NULL, NULL);
     if (!window)
     {
         glfwTerminate();
@@ -34,7 +34,7 @@ int main(void)
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+    double radian = 0.0;
     while (!glfwWindowShouldClose(window))
     {
         float ratio;
@@ -49,15 +49,18 @@ int main(void)
         glClearColor(.0f, 0.0f, 0.0f, 0.1f);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glBegin(GL_LINE_STRIP);
-        glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-        glVertex3f(0.0f, 1.0f, 0.0f);
-        glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
-        glVertex3f(1.0f, -1.0f, 0.0f);
-        glColor4f(0.0f, 0.0f, 1.0f, 1.0f);
-        glVertex3f(-1.0f, -1.0f, 0.0f);
-        glColor4f(1.0f, 0.0f, 0.0f, 1.0f);
-        glVertex3f(0.0f, 1.0f, 0.0f);
+        glPointSize(1);
+        glBegin(GL_POINTS);
+
+
+        for (int i = 0; i <=360; i++)
+        {
+            radian = i * 3.1415926535 / 180;
+            glColor4f(0.0f, 1.0f, 0.0f, 1.0f);
+            glVertex3f(glm::cos(radian), glm::sin(radian), 0.0f);
+        }
+        
+
         glEnd();
 
         glfwSwapBuffers(window);
